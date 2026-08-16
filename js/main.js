@@ -24,10 +24,10 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
-// ===== Story timeline: reveal cards as they scroll into view =====
-const timelineCards = document.querySelectorAll('.timeline-card');
+// ===== Floating cards: reveal as they scroll into view =====
+const revealCards = document.querySelectorAll('.timeline-card, .schedule-card');
 
-if (timelineCards.length) {
+if (revealCards.length) {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -37,7 +37,7 @@ if (timelineCards.length) {
     });
   }, { threshold: 0.15 });
 
-  timelineCards.forEach(card => revealObserver.observe(card));
+  revealCards.forEach(card => revealObserver.observe(card));
 }
 
 // ===== Countdown timer =====
