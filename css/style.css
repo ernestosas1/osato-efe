@@ -460,7 +460,7 @@ a { color: inherit; }
   background: radial-gradient(circle, rgba(255, 255, 255, 0.06), transparent 70%);
 }
 
-.schedule-card--ceremony {
+.schedule-card--tradition {
   background: linear-gradient(135deg, rgba(40, 80, 50, 0.55), rgba(20, 13, 11, 0.92));
   border: 1px solid rgba(130, 190, 130, 0.25);
 }
@@ -500,7 +500,9 @@ a { color: inherit; }
   margin-bottom: 1.25rem;
 }
 
-.schedule-meta span {
+.schedule-date,
+.schedule-time,
+.schedule-location {
   color: var(--champagne);
   font-size: 0.9rem;
 }
