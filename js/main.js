@@ -40,6 +40,46 @@ if (revealCards.length) {
   revealCards.forEach(card => revealObserver.observe(card));
 }
 
+// ===== Gallery slider =====
+const gallerySlides = document.querySelectorAll('.gallery-slide');
+const galleryPrev = document.querySelector('.gallery-prev');
+const galleryNext = document.querySelector('.gallery-next');
+
+if (gallerySlides.length) {
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    gallerySlides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+  }
+
+  function goToNextSlide() {
+    currentSlide = (currentSlide + 1) % gallerySlides.length;
+    showSlide(currentSlide);
+  }
+
+  function goToPrevSlide() {
+    currentSlide = (currentSlide - 1 + gallerySlides.length) % gallerySlides.length;
+    showSlide(currentSlide);
+  }
+
+  let sliderTimer = setInterval(goToNextSlide, 2000);
+
+  function restartSliderTimer() {
+    clearInterval(sliderTimer);
+    sliderTimer = setInterval(goToNextSlide, 2000);
+  }
+
+  galleryNext.addEventListener('click', () => {
+    goToNextSlide();
+    restartSliderTimer();
+  });
+
+  galleryPrev.addEventListener('click', () => {
+    goToPrevSlide();
+    restartSliderTimer();
+  });
+}
+
 // ===== Countdown timer =====
 const countdownEl = document.getElementById('countdown');
 const weddingDate = new Date(countdownEl.dataset.weddingDate).getTime();
