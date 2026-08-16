@@ -24,6 +24,22 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
+// ===== Story timeline: reveal cards as they scroll into view =====
+const timelineCards = document.querySelectorAll('.timeline-card');
+
+if (timelineCards.length) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  timelineCards.forEach(card => revealObserver.observe(card));
+}
+
 // ===== Countdown timer =====
 const countdownEl = document.getElementById('countdown');
 const weddingDate = new Date(countdownEl.dataset.weddingDate).getTime();

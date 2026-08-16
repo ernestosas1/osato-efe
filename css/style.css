@@ -369,12 +369,20 @@ a { color: inherit; }
   border-radius: 14px;
   padding: 2rem;
   max-width: 420px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  opacity: 0;
+  transform: translate(-40px, 20px);
+  transition: opacity 0.7s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .timeline-item:nth-child(even) .timeline-card {
   grid-column: 3;
   justify-self: start;
+  transform: translate(40px, 20px);
+}
+
+.timeline-card.in-view {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 .timeline-card:hover {
