@@ -705,6 +705,44 @@ a { color: inherit; }
   flex-wrap: wrap;
 }
 
+.registry-bank {
+  margin-top: 3.5rem;
+}
+
+.registry-bank .section-intro {
+  margin-bottom: 0;
+}
+
+.bank-grid {
+  max-width: 800px;
+  margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.bank-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.bank-card h3 {
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 0.85rem;
+}
+
+.bank-card p {
+  margin: 0 0 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.bank-card p:last-child { margin-bottom: 0; }
+.bank-card strong { color: var(--ink); }
+
 /* ---------- Q&A ---------- */
 .qa-section {
   background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
@@ -866,6 +904,10 @@ a { color: inherit; }
   .nav-toggle { display: flex; }
 
   .travel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bank-grid {
     grid-template-columns: 1fr;
   }
 
