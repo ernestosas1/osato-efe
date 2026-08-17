@@ -24,7 +24,7 @@ Takes about 5 minutes, entirely inside your own Google account.
 
 1. Go to [sheets.google.com](https://sheets.google.com) and create a new
    blank spreadsheet. Name it something like "Wedding RSVPs". In row 1, add
-   headers: `Timestamp | Name | Email | Attending | Guests | Notes`.
+   headers: `Timestamp | Name | Email | Attending | Notes`.
 2. In that sheet, go to **Extensions → Apps Script**.
 3. Delete the placeholder code and paste this instead:
 
@@ -36,7 +36,6 @@ Takes about 5 minutes, entirely inside your own Google account.
        e.parameter.name,
        e.parameter.email,
        e.parameter.attending,
-       e.parameter.guests,
        e.parameter.notes
      ]);
      return ContentService.createTextOutput(JSON.stringify({ result: 'success' }))
@@ -58,7 +57,7 @@ Takes about 5 minutes, entirely inside your own Google account.
 
 That's it — form submissions will now append as new rows in your Sheet in
 real time. You can open the Sheet any time to see responses, sort by
-"Attending", sum up guest counts, etc.
+"Attending", count RSVPs, etc.
 
 > If you ever edit the Apps Script code again, you must create a **new
 > deployment version** (Deploy → Manage deployments → edit → New version)
