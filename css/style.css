@@ -639,6 +639,21 @@ a { color: inherit; }
 
 
 /* ---------- RSVP ---------- */
+.rsvp-section {
+  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  padding: 6rem 1.5rem;
+}
+
+.rsvp-heading {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.rsvp-section .section-intro {
+  color: var(--cream);
+  opacity: 0.85;
+}
+
 .rsvp-form {
   max-width: 480px;
   margin: 3rem auto 0;
@@ -652,7 +667,7 @@ a { color: inherit; }
   flex-direction: column;
   gap: 0.4rem;
   font-size: 0.85rem;
-  color: var(--ink-soft);
+  color: var(--champagne);
   letter-spacing: 0.03em;
 }
 
@@ -678,8 +693,8 @@ a { color: inherit; }
   min-height: 1.2em;
 }
 
-.rsvp-status.success { color: var(--gold-dark); }
-.rsvp-status.error { color: #b0463c; }
+.rsvp-status.success { color: var(--gold); }
+.rsvp-status.error { color: #e0776a; }
 
 /* ---------- Registry ---------- */
 .registry-links {
@@ -691,6 +706,16 @@ a { color: inherit; }
 }
 
 /* ---------- Q&A ---------- */
+.qa-section {
+  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  padding: 6rem 1.5rem;
+}
+
+.qa-heading {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .qa-list {
   max-width: 680px;
   margin: 3rem auto 0;
@@ -700,8 +725,8 @@ a { color: inherit; }
 }
 
 .qa-list details {
-  background: var(--cream);
-  border: 1px solid var(--border);
+  background: #1c1210;
+  border: 1px solid rgba(182, 144, 90, 0.3);
   border-radius: 8px;
   padding: 1rem 1.25rem;
 }
@@ -709,23 +734,108 @@ a { color: inherit; }
 .qa-list summary {
   cursor: pointer;
   font-weight: 500;
-  color: var(--ink);
+  color: #fff;
 }
 
 .qa-list p {
   margin: 0.75rem 0 0;
-  color: var(--ink-soft);
+  color: var(--cream);
+  opacity: 0.8;
 }
+
+.qa-palette h4 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--champagne);
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.qa-palette p { margin: 0.4rem 0; }
+.qa-palette strong { color: var(--champagne); }
+
+/* ---------- Contact ---------- */
+.contact-section {
+  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.contact-heading {
+  margin-bottom: 1rem;
+}
+
+.contact-section .section-intro {
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 14px;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.contact-btn--whatsapp { border-color: #3bd671; color: #3bd671; }
+.contact-btn--whatsapp:hover { background: #3bd671; color: #140d0b; }
+
+.contact-btn--call { border-color: #5b9bf0; color: #5b9bf0; }
+.contact-btn--call:hover { background: #5b9bf0; color: #140d0b; }
+
+.contact-btn--email { border-color: var(--gold); color: var(--gold); }
+.contact-btn--email:hover { background: var(--gold); color: #140d0b; }
 
 /* ---------- Footer ---------- */
 .site-footer {
+  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
   text-align: center;
-  padding: 3rem 1.5rem;
-  color: var(--ink-soft);
-  font-size: 0.9rem;
+  padding: 4rem 1.5rem 3rem;
 }
 
-.footer-heart { font-family: var(--font-serif); font-style: italic; margin-top: 0.3rem; }
+.footer-ornament {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.footer-names { margin-bottom: 0.5rem; }
+
+.footer-date {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--cream);
+  opacity: 0.85;
+  font-size: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.site-footer .divider { margin-bottom: 1.5rem; }
+
+.footer-tagline {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: var(--cream);
+  opacity: 0.6;
+  margin: 0;
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
