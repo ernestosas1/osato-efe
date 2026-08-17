@@ -111,7 +111,7 @@ setInterval(updateCountdown, 1000);
 // EDIT ME: paste the Web App URL you get after deploying the Google Apps
 // Script from SETUP.md. Leave as-is and the form will just show an error
 // telling you it isn't configured yet.
-const RSVP_ENDPOINT = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzAWTDBLpNFJiVtSBfjIELpy3iPgrVd8cvuOFdY14LsXNm_qyM4TjFdIyQ-HqtZD6Gk/exec';
 
 const rsvpForm = document.getElementById('rsvpForm');
 const rsvpStatus = document.getElementById('rsvpStatus');
