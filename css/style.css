@@ -985,9 +985,11 @@ a { color: inherit; }
   width: clamp(240px, 46vw, 420px);
   height: clamp(150px, 28vh, 260px);
   transform: translate(-50%, 0) translateZ(3px);
-  background: linear-gradient(180deg, var(--cream), var(--cream-alt));
-  border-radius: 6px;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  background-image: url('../images/rings.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 62%;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55));
   will-change: transform;
 }
 

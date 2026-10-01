@@ -15,10 +15,10 @@ if (envelopeIntro) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const gsapAvailable = typeof gsap !== 'undefined';
 
-  if (sessionStorage.getItem('envelopeOpened') === 'true' || prefersReducedMotion || !gsapAvailable) {
-    // Skip the animated sequence entirely: already seen it this session, the
-    // visitor's OS asked for reduced motion, or GSAP failed to load (e.g. offline).
-    sessionStorage.setItem('envelopeOpened', 'true');
+  if (prefersReducedMotion || !gsapAvailable) {
+    // Skip the animated sequence entirely: the visitor's OS asked for reduced
+    // motion, or GSAP failed to load (e.g. offline). The envelope intro still
+    // plays fresh on every page load/reload otherwise (by design).
     envelopeIntro.style.display = 'none';
   } else {
     document.body.style.overflow = 'hidden';
@@ -30,6 +30,7 @@ if (envelopeIntro) {
     const envelopeCard = document.getElementById('envelopeCard');
     const envelopeFlap = document.getElementById('envelopeFlap');
     const envelopePocket = envelopeIntro.querySelector('.envelope-pocket');
+    const envelopeBack = envelopeIntro.querySelector('.envelope-back');
     const envelopeSealWrap = document.getElementById('envelopeSeal');
     const sealLeft = envelopeIntro.querySelector('.seal-left');
     const sealRight = envelopeIntro.querySelector('.seal-right');
@@ -101,7 +102,6 @@ if (envelopeIntro) {
     const openEnvelope = () => {
       if (opened) return;
       opened = true;
-      sessionStorage.setItem('envelopeOpened', 'true');
       envelopeSealWrap.style.animation = 'none';
 
       masterTimeline = gsap.timeline({
@@ -114,10 +114,17 @@ if (envelopeIntro) {
         .to(sealLeft, { xPercent: -165, yPercent: 70, rotation: -55, opacity: 0, duration: 0.6, ease: 'power2.in' }, 0)
         .to(sealRight, { xPercent: 65, yPercent: 70, rotation: 55, opacity: 0, duration: 0.6, ease: 'power2.in' }, 0)
         .to(envelopeFlap, { rotateX: -175, duration: 1.1, ease: 'power3.inOut' }, 0.3)
-        .to(envelopeCard, { yPercent: -45, duration: 1, ease: 'power2.out' }, 0.9)
-        .to(envelopePocket, { opacity: 0, duration: 0.6, ease: 'power1.out' }, 1.3)
-        .to(envelope3d, { scale: 1.4, opacity: 0, duration: 1, ease: 'power1.in' }, 1.6)
-        .fromTo(envelopeNamesReveal, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 1.9);
+        // The rings rise up out of the pocket...
+        .to(envelopeCard, { yPercent: -45, duration: 1, ease: 'power2.out' }, 0.7)
+        .to(envelopePocket, { opacity: 0, duration: 0.5, ease: 'power1.out' }, 1.1)
+        // ...fade the inner back wall too, so the zooming floral background
+        // shows through behind the names reveal instead of a flat dark panel...
+        .to(envelopeBack, { opacity: 0, duration: 0.8, ease: 'power1.out' }, 1.3)
+        // ...keep rising and grow into the hero of the transition...
+        .to(envelopeCard, { yPercent: -120, scale: 1.2, duration: 1, ease: 'power2.inOut' }, 1.6)
+        // ...then dissolve directly into the names reveal (no blank/black gap in between).
+        .to(envelopeCard, { opacity: 0, duration: 0.6, ease: 'power1.in' }, 2.3)
+        .fromTo(envelopeNamesReveal, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 2.0);
     };
 
     envelopeSealWrap.addEventListener('click', openEnvelope);
@@ -134,7 +141,6 @@ if (envelopeIntro) {
         envelopeBg, envelopeEyebrow, envelopeHint, sealLeft, sealRight,
         envelopeFlap, envelopeCard, envelopePocket, envelope3d, envelopeNamesReveal,
       ]);
-      sessionStorage.setItem('envelopeOpened', 'true');
       finish();
     });
   }
