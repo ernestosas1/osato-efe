@@ -7,10 +7,39 @@
 <meta name="description" content="Osato & Efe are getting married on April 24, 2027 — join us as we celebrate.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<!-- ============ ENVELOPE INTRO ============ -->
+<div id="envelopeIntro" class="envelope-intro">
+  <button type="button" id="envelopeSkip" class="envelope-skip">Skip</button>
+
+  <div class="envelope-bg" id="envelopeBg"></div>
+  <canvas id="envelopeParticles" class="envelope-particles"></canvas>
+
+  <div class="envelope-3d" id="envelope3d">
+    <div class="envelope-back"></div>
+    <div class="envelope-card" id="envelopeCard"></div>
+    <div class="envelope-pocket"></div>
+    <div class="envelope-flap" id="envelopeFlap"></div>
+
+    <div class="envelope-seal-wrap" id="envelopeSeal" role="button" tabindex="0" aria-label="Open invitation">
+      <div class="envelope-seal-half seal-left"><span class="seal-text">O&amp;E</span></div>
+      <div class="envelope-seal-half seal-right"><span class="seal-text">O&amp;E</span></div>
+    </div>
+  </div>
+
+  <p class="eyebrow envelope-eyebrow" id="envelopeEyebrow">You&rsquo;re Invited</p>
+  <p class="envelope-hint" id="envelopeHint">Tap the seal to open</p>
+
+  <div class="envelope-names-reveal" id="envelopeNamesReveal">
+    <p class="eyebrow">Together with their families</p>
+    <h2 class="names-reveal-text">Osato &amp; Efe</h2>
+    <p class="names-reveal-date">Saturday, April 24, 2027</p>
+  </div>
+</div>
 
 <!-- ============ NAV ============ -->
 <header class="site-header">
@@ -337,6 +366,7 @@ Because apparently, true love is surviving Nigerian pepper soup together.😂❤
   <p class="footer-tagline">Made with love for our big day</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

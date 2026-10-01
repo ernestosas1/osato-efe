@@ -1,3 +1,145 @@
+// ===== Envelope intro =====
+const envelopeIntro = document.getElementById('envelopeIntro');
+
+if (envelopeIntro) {
+  const envelopeSkip = document.getElementById('envelopeSkip');
+
+  const finishIntro = () => {
+    document.body.style.overflow = '';
+    envelopeIntro.classList.add('hide');
+    setTimeout(() => {
+      envelopeIntro.style.display = 'none';
+    }, 650);
+  };
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gsapAvailable = typeof gsap !== 'undefined';
+
+  if (sessionStorage.getItem('envelopeOpened') === 'true' || prefersReducedMotion || !gsapAvailable) {
+    // Skip the animated sequence entirely: already seen it this session, the
+    // visitor's OS asked for reduced motion, or GSAP failed to load (e.g. offline).
+    sessionStorage.setItem('envelopeOpened', 'true');
+    envelopeIntro.style.display = 'none';
+  } else {
+    document.body.style.overflow = 'hidden';
+
+    const envelopeBg = document.getElementById('envelopeBg');
+    const envelope3d = document.getElementById('envelope3d');
+    const envelopeEyebrow = document.getElementById('envelopeEyebrow');
+    const envelopeHint = document.getElementById('envelopeHint');
+    const envelopeCard = document.getElementById('envelopeCard');
+    const envelopeFlap = document.getElementById('envelopeFlap');
+    const envelopePocket = envelopeIntro.querySelector('.envelope-pocket');
+    const envelopeSealWrap = document.getElementById('envelopeSeal');
+    const sealLeft = envelopeIntro.querySelector('.seal-left');
+    const sealRight = envelopeIntro.querySelector('.seal-right');
+    const envelopeNamesReveal = document.getElementById('envelopeNamesReveal');
+    const particleCanvas = document.getElementById('envelopeParticles');
+
+    let opened = false;
+    let masterTimeline = null;
+
+    // Ambient background zoom (plays immediately, independent of opening the seal)
+    gsap.to(envelopeBg, { scale: 1, duration: 4, ease: 'power1.out' });
+
+    // Floating gold particles, drifting upward with a gentle sway
+    const stopParticles = (() => {
+      const ctx = particleCanvas.getContext('2d');
+      let w, h, particles, rafId;
+
+      function resize() {
+        w = particleCanvas.width = window.innerWidth;
+        h = particleCanvas.height = window.innerHeight;
+      }
+
+      function makeParticles(count) {
+        return Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.4 + 0.15,
+          drift: Math.random() * 0.6 - 0.3,
+          phase: Math.random() * Math.PI * 2,
+          alpha: Math.random() * 0.5 + 0.2,
+        }));
+      }
+
+      resize();
+      particles = makeParticles(60);
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.y -= p.speed;
+          p.x += Math.sin(p.phase + p.y * 0.01) * p.drift * 0.3;
+          if (p.y < -10) {
+            p.y = h + 10;
+            p.x = Math.random() * w;
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+          ctx.fill();
+        });
+        rafId = requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      draw();
+
+      return () => {
+        window.removeEventListener('resize', resize);
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    })();
+
+    const finish = () => {
+      stopParticles();
+      finishIntro();
+    };
+
+    const openEnvelope = () => {
+      if (opened) return;
+      opened = true;
+      sessionStorage.setItem('envelopeOpened', 'true');
+      envelopeSealWrap.style.animation = 'none';
+
+      masterTimeline = gsap.timeline({
+        onComplete: () => setTimeout(finish, 1900),
+      });
+
+      masterTimeline
+        .to(envelopeEyebrow, { opacity: 0, duration: 0.3 }, 0)
+        .to(envelopeHint, { opacity: 0, duration: 0.3 }, 0)
+        .to(sealLeft, { xPercent: -165, yPercent: 70, rotation: -55, opacity: 0, duration: 0.6, ease: 'power2.in' }, 0)
+        .to(sealRight, { xPercent: 65, yPercent: 70, rotation: 55, opacity: 0, duration: 0.6, ease: 'power2.in' }, 0)
+        .to(envelopeFlap, { rotateX: -175, duration: 1.1, ease: 'power3.inOut' }, 0.3)
+        .to(envelopeCard, { yPercent: -45, duration: 1, ease: 'power2.out' }, 0.9)
+        .to(envelopePocket, { opacity: 0, duration: 0.6, ease: 'power1.out' }, 1.3)
+        .to(envelope3d, { scale: 1.4, opacity: 0, duration: 1, ease: 'power1.in' }, 1.6)
+        .fromTo(envelopeNamesReveal, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 1.9);
+    };
+
+    envelopeSealWrap.addEventListener('click', openEnvelope);
+    envelopeSealWrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openEnvelope();
+      }
+    });
+
+    envelopeSkip.addEventListener('click', () => {
+      if (masterTimeline) masterTimeline.kill();
+      gsap.killTweensOf([
+        envelopeBg, envelopeEyebrow, envelopeHint, sealLeft, sealRight,
+        envelopeFlap, envelopeCard, envelopePocket, envelope3d, envelopeNamesReveal,
+      ]);
+      sessionStorage.setItem('envelopeOpened', 'true');
+      finish();
+    });
+  }
+}
+
 // ===== Sticky nav background on scroll =====
 const siteHeader = document.querySelector('.site-header');
 
