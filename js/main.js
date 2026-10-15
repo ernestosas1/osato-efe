@@ -1,3 +1,30 @@
+// ===== Background music =====
+// Starts the moment the seal is tapped (or Skip is pressed) — both are real
+// user gestures, so browsers allow audio-with-sound to start there. Loops
+// for as long as the visitor stays on the site; they can mute it anytime.
+const weddingAudio = document.getElementById('weddingAudio');
+const musicToggle = document.getElementById('musicToggle');
+
+const startMusic = () => {
+  if (!weddingAudio || !musicToggle) return;
+  weddingAudio.volume = 0.6;
+  weddingAudio.play().then(() => {
+    musicToggle.hidden = false;
+  }).catch(() => {
+    // Autoplay was blocked for some reason — fail silently rather than
+    // breaking the rest of the intro.
+  });
+};
+
+if (musicToggle && weddingAudio) {
+  musicToggle.addEventListener('click', () => {
+    weddingAudio.muted = !weddingAudio.muted;
+    musicToggle.classList.toggle('muted', weddingAudio.muted);
+    musicToggle.querySelector('.music-icon').innerHTML = weddingAudio.muted ? '&#128263;' : '&#128266;';
+    musicToggle.setAttribute('aria-label', weddingAudio.muted ? 'Unmute music' : 'Mute music');
+  });
+}
+
 // ===== Envelope intro =====
 const envelopeIntro = document.getElementById('envelopeIntro');
 
@@ -102,6 +129,7 @@ if (envelopeIntro) {
     const openEnvelope = () => {
       if (opened) return;
       opened = true;
+      startMusic();
       envelopeSealWrap.style.animation = 'none';
 
       masterTimeline = gsap.timeline({
@@ -136,6 +164,7 @@ if (envelopeIntro) {
     });
 
     envelopeSkip.addEventListener('click', () => {
+      startMusic();
       if (masterTimeline) masterTimeline.kill();
       gsap.killTweensOf([
         envelopeBg, envelopeEyebrow, envelopeHint, sealLeft, sealRight,

@@ -288,7 +288,11 @@ a { color: inherit; }
 }
 
 .story-content {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  position: relative;
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 5rem 4rem;
 }
 
@@ -415,7 +419,10 @@ a { color: inherit; }
 
 /* ---------- Schedule ---------- */
 .schedule-section {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 6rem 1.5rem;
 }
 
@@ -640,7 +647,10 @@ a { color: inherit; }
 
 /* ---------- RSVP ---------- */
 .rsvp-section {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 6rem 1.5rem;
 }
 
@@ -745,7 +755,10 @@ a { color: inherit; }
 
 /* ---------- Q&A ---------- */
 .qa-section {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 6rem 1.5rem;
 }
 
@@ -794,7 +807,10 @@ a { color: inherit; }
 
 /* ---------- Contact ---------- */
 .contact-section {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 6rem 1.5rem;
   text-align: center;
 }
@@ -842,7 +858,10 @@ a { color: inherit; }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: linear-gradient(180deg, #1c1210 0%, #140d0b 100%);
+  background-image: linear-gradient(rgba(20, 13, 11, 0.78), rgba(20, 13, 11, 0.85)), url('../images/story-frame.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   text-align: center;
   padding: 4rem 1.5rem 3rem;
 }
@@ -928,6 +947,35 @@ a { color: inherit; }
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.2s, border-color 0.2s;
+}
+
+.music-toggle {
+  position: fixed;
+  bottom: clamp(1rem, 4vh, 2rem);
+  right: clamp(1rem, 4vw, 2rem);
+  z-index: 500;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(20, 13, 11, 0.85);
+  border: 1px solid rgba(182, 144, 90, 0.5);
+  color: var(--champagne);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.music-toggle:hover {
+  border-color: var(--gold);
+  transform: scale(1.06);
+}
+
+.music-toggle.muted {
+  opacity: 0.6;
 }
 
 .envelope-skip:hover {
@@ -1159,6 +1207,15 @@ a { color: inherit; }
     position: relative;
     top: 0;
     height: 50vh;
+  }
+
+  .story-content,
+  .schedule-section,
+  .rsvp-section,
+  .qa-section,
+  .contact-section,
+  .site-footer {
+    background-attachment: scroll;
   }
 
   .story-content {
