@@ -23,6 +23,21 @@ if (musicToggle && weddingAudio) {
     musicToggle.querySelector('.music-icon').innerHTML = weddingAudio.muted ? '&#128263;' : '&#128266;';
     musicToggle.setAttribute('aria-label', weddingAudio.muted ? 'Unmute music' : 'Mute music');
   });
+
+  // Pause while the tab is minimized/backgrounded, resume when it's visible
+  // again — browsers don't do this automatically (so background music/podcast
+  // players keep working), but we want ours to stop when nobody's looking.
+  let resumeMusicOnShow = false;
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      resumeMusicOnShow = !weddingAudio.paused;
+      if (resumeMusicOnShow) weddingAudio.pause();
+    } else if (resumeMusicOnShow) {
+      resumeMusicOnShow = false;
+      weddingAudio.play().catch(() => {});
+    }
+  });
 }
 
 // ===== Envelope intro =====
